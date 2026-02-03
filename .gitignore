@@ -1,0 +1,19 @@
+.DS_Store
+.env
+.env.*
+.mcp.json
+*.log
+node_modules/
+
+# Secrets
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+
+# Local tooling
+.cursor/
+.vscode/

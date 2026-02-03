@@ -1,0 +1,64 @@
+{
+  "name": "webhook vers slack",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "webhook-slack",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -208,
+        0
+      ],
+      "webhookId": "04b2a968-6d10-47f6-be12-a0220da3e0bf"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "mode": "id",
+          "value": "C0123456789"
+        },
+        "text": "=Webhook reçu: {{$json.body.text || $json.body.message || $json.body}}",
+        "otherOptions": {}
+      },
+      "id": "2",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        128,
+        0
+      ],
+      "webhookId": "ce5f20a6-b0ca-4cb1-9bf3-d0bba9d516e3"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "tags": []
+}
