@@ -1,0 +1,57 @@
+{
+  "id": "hVmVCj4VjLSQUCIl",
+  "name": "Test — Joke API",
+  "active": false,
+  "description": "Workflow de test : récupère une blague aléatoire via l'API officielle et formate le résultat en un champ unique.",
+  "nodes": [
+    {
+      "id": "627516d3-6c6e-4768-b948-1f3aab711baf",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "id": "bc3879ae-4eb6-4931-92f1-c87002178a31",
+      "name": "Fetch Joke",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [224, 0],
+      "parameters": {
+        "method": "GET",
+        "url": "https://official-joke-api.appspot.com/random_joke"
+      }
+    },
+    {
+      "id": "d4fc825a-6bea-40bd-97bc-e1cb6e458ece",
+      "name": "Format Result",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [448, 0],
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            { "id": "1", "name": "joke", "value": "={{ $json.setup + \" — \" + $json.punchline }}", "type": "string" },
+            { "id": "2", "name": "category", "value": "={{ $json.type }}", "type": "string" }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [[{ "node": "Fetch Joke", "type": "main", "index": 0 }]]
+    },
+    "Fetch Joke": {
+      "main": [[{ "node": "Format Result", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
+  }
+}
